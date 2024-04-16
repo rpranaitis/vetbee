@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ROUTES, navigationBarRoutes } from '../../routes';
 import LogoUrl from '../../assets/logo.png';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Header = styled.div`
   display: flex;
@@ -25,8 +25,21 @@ const Nav = styled.nav`
   }
 `;
 
+const NavLink = styled(Link)`
+  color: #fc8118;
+  text-decoration: none;
+
+  ${(props) =>
+    props.$isActive &&
+    css`
+      font-weight: bold;
+    `}
+`;
+
 const NavigationBar = () => {
   const location = useLocation();
+
+  console.log(location);
 
   return (
     <Header>
@@ -36,10 +49,14 @@ const NavigationBar = () => {
         </Link>
       </div>
       <Nav>
-        {navigationBarRoutes.map((route) => (
-          <Link key={route.path} to={route.path} className={location.pathname === route.path ? '' : ''}>
+        {navigationBarRoutes.map((route, index) => (
+          <NavLink
+            key={route.path}
+            to={route.path}
+            $isActive={location.pathname === route.path || (location.pathname === ROUTES.HOME && index === 0)}
+          >
             {route.name}
-          </Link>
+          </NavLink>
         ))}
       </Nav>
     </Header>
