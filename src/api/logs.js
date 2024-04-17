@@ -6,3 +6,9 @@ export const fetchLogs = async (id) => {
 
   return await response.data;
 };
+
+export const addLog = async (data) => {
+  const response = await axios.post(`${API}/logs`, data);
+
+  return await response.data;
+};

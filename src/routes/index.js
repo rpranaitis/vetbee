@@ -1,8 +1,9 @@
 import Pets from '../pages/Pets/Pets';
 import Medications from '../pages/Medications/Medications';
 import AddMedication from '../pages/AddMedication/AddMedication';
-import Log from '../components/Log/Log';
+import Log from '../pages/Log/Log';
 import AddPet from '../pages/AddPet/AddPet';
+import AddLog from '../pages/AddLog/AddLog';
 
 export const ROUTES = {
   HOME: '/',
@@ -11,6 +12,7 @@ export const ROUTES = {
   MEDICATIONS: '/medications',
   ADD_MEDICATION: '/medications/add',
   LOG: '/log/:id',
+  ADD_LOG: '/logs/add',
 };
 
 export const routes = [
@@ -37,6 +39,10 @@ export const routes = [
   {
     path: ROUTES.LOG,
     Component: Log,
+  },
+  {
+    path: ROUTES.ADD_LOG,
+    Component: AddLog,
   }
 ];
 

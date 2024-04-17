@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import Button from '../Button/Button';
+import Button from '../../components/Button/Button';
 import { fetchLogs } from '../../api/logs';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/functions';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { ROUTES } from '../../routes';
 
 const Header = styled.header`
   display: flex;
@@ -74,7 +75,9 @@ const Log = () => {
         <Heading>{logs && logs.length ? logs[0]['name'] + ': ' : ''} Health Records</Heading>
         <ButtonsWrapper>
           <Button $primary>ADD PRESCRIPTION</Button>
-          <Button>ADD LOG</Button>
+          <Link to={ROUTES.ADD_LOG} state={{ id: id }}>
+            <Button>ADD LOG</Button>
+          </Link>
         </ButtonsWrapper>
       </Header>
       <LogsContainer>
