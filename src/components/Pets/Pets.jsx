@@ -2,9 +2,6 @@ import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import { fetchPets } from '../../api/pets';
 import { useEffect, useState } from 'react';
-import { formatDate } from '../../utils/functions';
-import { ROUTES } from '../../routes';
-import { Link, generatePath } from 'react-router-dom';
 
 const Header = styled.header`
   display: flex;
@@ -67,6 +64,15 @@ const Pets = () => {
     fetchPets().then((response) => setPets(response));
   }, []);
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <>
       <Header>
@@ -85,9 +91,7 @@ const Pets = () => {
                 <span>{pet.client_email}</span>
               </PetDetails>
               <ButtonsWrapper>
-                <Link to={generatePath(ROUTES.LOG, { id: pet.id })}>
-                  <Button $primary>VIEW LOG</Button>
-                </Link>
+                <Button $primary>VIEW LOG</Button>
                 <Button>DELETE</Button>
               </ButtonsWrapper>
             </PetBox>

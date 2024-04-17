@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import Button from '../../components/Button/Button';
-import { fetchPets } from '../../api/pets';
+import Button from '../Button/Button';
+import { fetchLogs } from '../../api/logs';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/functions';
-import { ROUTES } from '../../routes';
-import { Link, generatePath } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const Header = styled.header`
   display: flex;
@@ -23,13 +22,13 @@ const ButtonsWrapper = styled.div`
   gap: 5px;
 `;
 
-const PetsContainer = styled.div`
+const LogsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 `;
 
-const PetBox = styled.div`
+const LogBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,11 +47,11 @@ const PetBox = styled.div`
   }
 `;
 
-const PetHeading = styled.h3`
+const LogHeading = styled.h3`
   font-weight: normal;
 `;
 
-const PetDetails = styled.div`
+const LogDetails = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,42 +59,39 @@ const PetDetails = styled.div`
   font-size: 14px;
 `;
 
-const Pets = () => {
-  const [pets, setPets] = useState([]);
+const Log = () => {
+  const { id } = useParams();
+
+  const [logs, setLogs] = useState([]);
 
   useEffect(() => {
-    fetchPets().then((response) => setPets(response));
+    fetchLogs(id).then((response) => setLogs(response));
   }, []);
 
   return (
     <>
       <Header>
-        <Heading>Pet List</Heading>
+        <Heading>{logs && logs.length ? logs[0]['name'] + ': ' : ''} Health Records</Heading>
         <ButtonsWrapper>
-          <Button $primary>ADD PET</Button>
+          <Button $primary>ADD PRESCRIPTION</Button>
+          <Button>ADD LOG</Button>
         </ButtonsWrapper>
       </Header>
-      <PetsContainer>
-        {pets.map((pet) => {
+      <LogsContainer>
+        {logs.map((log, index) => {
           return (
-            <PetBox key={pet.id}>
-              <PetHeading>{pet.name}</PetHeading>
-              <PetDetails>
-                <span>{formatDate(pet.dob)}</span>
-                <span>{pet.client_email}</span>
-              </PetDetails>
-              <ButtonsWrapper>
-                <Link to={generatePath(ROUTES.LOG, { id: pet.id })}>
-                  <Button $primary>VIEW LOG</Button>
-                </Link>
-                <Button>DELETE</Button>
-              </ButtonsWrapper>
-            </PetBox>
+            <LogBox key={index}>
+              <LogHeading>{log.status}</LogHeading>
+              <LogDetails>
+                <span>{log.description}</span>
+                <span>{formatDate(log.dob)}</span>
+              </LogDetails>
+            </LogBox>
           );
         })}
-      </PetsContainer>
+      </LogsContainer>
     </>
   );
 };
 
-export default Pets;
+export default Log;
