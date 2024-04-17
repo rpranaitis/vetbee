@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
-import { fetchPets } from '../../api/pets';
+import { deletePet, fetchPets } from '../../api/pets';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/functions';
 import { ROUTES } from '../../routes';
@@ -67,12 +67,26 @@ const Pets = () => {
     fetchPets().then((response) => setPets(response));
   }, []);
 
+  const handleDelete = async (id) => {
+    if (confirm('Are you sure you want to delete this pet?')) {
+      try {
+        await deletePet(id);
+        alert('Pet was successfully deleted.');
+        fetchPets().then((response) => setPets(response));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <>
       <Header>
         <Heading>Pet List</Heading>
         <ButtonsWrapper>
-          <Button $primary>ADD PET</Button>
+          <Link to={ROUTES.ADD_PET}>
+            <Button $primary>ADD PET</Button>
+          </Link>
         </ButtonsWrapper>
       </Header>
       <PetsContainer>
@@ -88,7 +102,7 @@ const Pets = () => {
                 <Link to={generatePath(ROUTES.LOG, { id: pet.id })}>
                   <Button $primary>VIEW LOG</Button>
                 </Link>
-                <Button>DELETE</Button>
+                <Button onClick={() => handleDelete(pet.id)}>DELETE</Button>
               </ButtonsWrapper>
             </PetBox>
           );
