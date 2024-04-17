@@ -39,8 +39,6 @@ const NavLink = styled(Link)`
 const NavigationBar = () => {
   const location = useLocation();
 
-  console.log(location);
-
   return (
     <Header>
       <div>
