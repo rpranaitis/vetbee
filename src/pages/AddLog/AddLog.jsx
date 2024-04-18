@@ -1,16 +1,13 @@
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
+import Header from '../../components/Header/Header';
+import Input from '../../components/Input/Input';
+import Label from '../../components/Label/Label';
+import Textarea from '../../components/Textarea/Textarea';
 import { useState } from 'react';
 import { ROUTES } from '../../routes';
 import { useLocation, useNavigate, generatePath } from 'react-router-dom';
 import { addLog } from '../../api/logs';
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-`;
 
 const Heading = styled.h2`
   font-weight: normal;
@@ -34,33 +31,6 @@ const Form = styled.form`
   @media only screen and (min-width: 992px) {
     width: 50%;
   }
-`;
-
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid #e1e1e1;
-  border-radius: 4px;
-  outline: none;
-  padding: 10px;
-  font-size: 15px;
-`;
-
-const Textarea = styled.textarea`
-  width: 100%;
-  border: 1px solid #e1e1e1;
-  border-radius: 4px;
-  outline: none;
-  padding: 10px;
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 150px;
-  font-size: 15px;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-  display: block;
-  margin-bottom: 10px;
 `;
 
 const AddLog = () => {

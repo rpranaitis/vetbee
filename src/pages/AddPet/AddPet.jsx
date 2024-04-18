@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
+import Header from '../../components/Header/Header';
+import Input from '../../components/Input/Input';
+import Label from '../../components/Label/Label';
 import { useState } from 'react';
 import { ROUTES } from '../../routes';
 import { useNavigate } from 'react-router-dom';
 import { addPet } from '../../api/pets';
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-`;
 
 const Heading = styled.h2`
   font-weight: normal;
@@ -34,21 +30,6 @@ const Form = styled.form`
   @media only screen and (min-width: 992px) {
     width: 50%;
   }
-`;
-
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid #e1e1e1;
-  border-radius: 4px;
-  outline: none;
-  padding: 10px;
-  font-size: 15px;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-  display: block;
-  margin-bottom: 10px;
 `;
 
 const AddPet = () => {
@@ -91,6 +72,7 @@ const AddPet = () => {
               id="name"
               placeholder="Pet name"
               value={name}
+              required
             />
           </div>
           <div>
@@ -101,6 +83,7 @@ const AddPet = () => {
               id="date"
               placeholder="Pet date of birth"
               value={date}
+              required
             />
           </div>
           <div>
@@ -111,6 +94,7 @@ const AddPet = () => {
               id="email"
               placeholder="Client email"
               value={email}
+              required
             />
           </div>
           <Button $primary type="submit">

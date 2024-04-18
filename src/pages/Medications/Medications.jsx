@@ -1,16 +1,10 @@
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
+import Header from '../../components/Header/Header';
 import { fetchMeds } from '../../api/meds';
 import { useEffect, useState } from 'react';
 import { ROUTES } from '../../routes';
 import { Link } from 'react-router-dom';
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-`;
 
 const Heading = styled.h2`
   font-weight: normal;
